@@ -10,17 +10,40 @@ from PyQt5.QtWidgets import (
 
 from PyQt5 import uic
 
+from regisgrationWidget import RegistrationWidget
+from servoSettingsWidget import ServoSettingsWidget
 
 class Main_Window(QMainWindow):
 
 	def __init__(self):
 		super().__init__()
 
-		self.resize(800, 800)
+		self.resize(1100, 800)
+		self.setWindowTitle('GRAPHIT')
+		self.setWindowIcon(QIcon('./icons/grafit_rosatom.png'))
 
+		#CREATING CENTRAL WIDGET
+		self.mainWidget = QWidget()
+		
+		#CREATING LAYOUTS
+		mainGrid = QGridLayout()
+
+		#CREATING WIDGETS
+		registrationWin = RegistrationWidget()
+		servoSettings = ServoSettingsWidget()
+
+		
+		#ADDING WIDGETS TO LAYOUTS
+		mainGrid.addWidget(registrationWin, 0, 0)
+		mainGrid.addWidget(servoSettings, 1, 1)
+
+		#SETTING LAYOUTS TO CENTRAL WIDGET
+		self.mainWidget.setLayout(mainGrid)
+		self.setCentralWidget(self.mainWidget)
+		
+		#CREATING MENU BAR
 		self._createActions()
 		self._createMenuBar()
-
 
 
 	def _createMenuBar(self):
@@ -55,8 +78,8 @@ class Main_Window(QMainWindow):
 
 
 
-app = QApplication(sys.argv)
 
+app = QApplication(sys.argv)
 win = Main_Window()
 win.show()
 
