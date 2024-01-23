@@ -41,13 +41,9 @@ class Main_Window(QMainWindow):
 
 		#CREATING WIDGETS
 		registrationWin = RegistrationWidget()
-
 		servoSettings = ServoSettingsWidget()
-
 		self.videoCapture = VideoCaptureWidget()
 
-		#self.opencvFrameLabel = QLabel("hello, world")
-		#self.opencvFrameLabel.resize(self.imgWidth, self.imgHeight)
 
 		
 		#ADDING WIDGETS TO LAYOUTS
@@ -118,7 +114,6 @@ class Main_Window(QMainWindow):
 		qtImg = self.cv2qt(cvImg)
 		self.videoCapture.ui.opencvFrameLabel1.setPixmap(qtImg)
 		self.videoCapture.ui.opencvFrameLabel2.setPixmap(qtImg)
-		#self.opencvFrameLabel.setPixmap(qtImg)
 
 
 
