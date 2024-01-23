@@ -38,11 +38,14 @@ class Main_Window(QMainWindow):
 		
 		#CREATING LAYOUTS
 		mainGrid = QGridLayout()
+		mainGrid.setRowStretch(0, 1)
+		mainGrid.setRowStretch(1, 2)
 
 		#CREATING WIDGETS
 		registrationWin = RegistrationWidget()
 		servoSettings = ServoSettingsWidget()
 		self.videoCapture = VideoCaptureWidget()
+		lbl = QLabel("hello, world")
 
 
 		
@@ -50,6 +53,7 @@ class Main_Window(QMainWindow):
 		mainGrid.addWidget(registrationWin, 0, 0)
 		mainGrid.addWidget(servoSettings, 1, 1)
 		mainGrid.addWidget(self.videoCapture, 1, 0)
+		mainGrid.addWidget(lbl, 0, 1)
 
 		#SETTING LAYOUTS TO CENTRAL WIDGET
 		self.mainWidget.setLayout(mainGrid)
