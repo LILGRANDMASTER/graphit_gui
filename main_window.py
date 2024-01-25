@@ -17,6 +17,7 @@ from PyQt5 import uic
 from regisgrationWidget import RegistrationWidget
 from servoSettingsWidget import ServoSettingsWidget
 from cvVideoCaptureWidget import VideoCaptureWidget
+from shaft_visual import Shaft_Visual
 from videoCapture import VideoThread
 
 class Main_Window(QMainWindow):
@@ -45,7 +46,7 @@ class Main_Window(QMainWindow):
 		registrationWin = RegistrationWidget()
 		servoSettings = ServoSettingsWidget()
 		self.videoCapture = VideoCaptureWidget()
-		lbl = QLabel("hello, world")
+		shaftVisual = Shaft_Visual()
 
 
 		
@@ -53,7 +54,7 @@ class Main_Window(QMainWindow):
 		mainGrid.addWidget(registrationWin, 0, 0)
 		mainGrid.addWidget(servoSettings, 1, 1)
 		mainGrid.addWidget(self.videoCapture, 1, 0)
-		mainGrid.addWidget(lbl, 0, 1)
+		mainGrid.addWidget(shaftVisual, 0, 1)
 
 		#SETTING LAYOUTS TO CENTRAL WIDGET
 		self.mainWidget.setLayout(mainGrid)
