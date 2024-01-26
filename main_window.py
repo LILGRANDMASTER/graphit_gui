@@ -76,6 +76,7 @@ class Main_Window(QMainWindow):
 		self.vidThread.frameSignal.connect(self.updateImage)
 		self.videoCapture.ui.autocalibrateColor.clicked.connect(self.vidThread.autocalibrate)
 		self.videoCapture.ui.colorSettings.clicked.connect(self.openColorSettingsWindow)
+		self.videoCapture.ui.useFilter.clicked.connect(self.useVideoFilter)
 
 		#Выглядит по уебански, но работает
 		self.colorSettings.ui.apply.clicked.connect(
@@ -141,6 +142,9 @@ class Main_Window(QMainWindow):
 
 	def openColorSettingsWindow(self):
 		self.colorSettings.show()
+
+	def useVideoFilter(self):
+		self.vidThread.useFilter = not self.vidThread.useFilter
 
 
 

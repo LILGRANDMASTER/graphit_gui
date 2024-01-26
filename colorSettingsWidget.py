@@ -10,5 +10,3 @@ class ColorSettingsWidget(QWidget):
 
         self.ui = Ui_colorSetting()
         self.ui.setupUi(self)
-
-
