@@ -6,6 +6,8 @@ sys.path.insert(1, './ui_files')
 from registrationWindow import Ui_registrationWin
 
 class RegistrationWidget(QWidget):
+	reg = False
+
 	def __init__(self, parent=None):
 		super().__init__(parent=None)
 
@@ -22,6 +24,8 @@ class RegistrationWidget(QWidget):
 		self.ui.login.setStyleSheet('QPushButton {background-color: green;}')
 
 		journal = open('./log/registration.txt', 'a', encoding='utf-8')
-		journal.write(fio)
+		if self.reg == False:
+			journal.write(fio)
+			self.reg = True
 		journal.close()
 
