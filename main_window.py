@@ -17,6 +17,7 @@ from PyQt5 import uic
 from regisgrationWidget import RegistrationWidget
 from servoSettingsWidget import ServoSettingsWidget
 from cvVideoCaptureWidget import VideoCaptureWidget
+from colorSettingsWidget import ColorSettingsWidget
 from shaft_visual import Shaft_Visual
 from videoCapture import VideoThread
 
@@ -31,8 +32,8 @@ class Main_Window(QMainWindow):
 		self.setWindowIcon(QIcon('./icons/grafit_rosatom.png'))
 
 		#OPENCV VIDEO SHAPE
-		self.imgWidth = 500
-		self.imgHeight = 300
+		self.imgWidth = 800
+		self.imgHeight = 500
 
 		#CREATING CENTRAL WIDGET
 		self.mainWidget = QWidget()
@@ -46,6 +47,7 @@ class Main_Window(QMainWindow):
 		registrationWin = RegistrationWidget()
 		servoSettings = ServoSettingsWidget()
 		self.videoCapture = VideoCaptureWidget()
+		self.colorSettings = ColorSettingsWidget()
 		shaftVisual = Shaft_Visual()
 
 
@@ -67,8 +69,26 @@ class Main_Window(QMainWindow):
 
 		#CREATING VIDEO THREAD FROM OPENCV
 		self.vidThread = VideoThread()
-		self.vidThread.frameSignal.connect(self.updateImage)
 		self.vidThread.start()
+
+
+		#CONNECT SLOTS AND SIGNALS
+		self.vidThread.frameSignal.connect(self.updateImage)
+		self.videoCapture.ui.autocalibrateColor.clicked.connect(self.vidThread.autocalibrate)
+		self.videoCapture.ui.colorSettings.clicked.connect(self.openColorSettingsWindow)
+
+		#Выглядит по уебански, но работает
+		self.colorSettings.ui.apply.clicked.connect(
+			lambda: self.vidThread.calibrate(
+				int(self.colorSettings.ui.rl.text()),
+				int(self.colorSettings.ui.gl.text()),
+				int(self.colorSettings.ui.bl.text()),
+				int(self.colorSettings.ui.ru.text()),
+				int(self.colorSettings.ui.gu.text()),
+				int(self.colorSettings.ui.bu.text())
+			)
+		)
+		
 		
 
 
@@ -117,9 +137,10 @@ class Main_Window(QMainWindow):
 	def updateImage(self, cvImg):
 		"""Updates imageLabel with opencv image"""
 		qtImg = self.cv2qt(cvImg)
-		self.videoCapture.ui.opencvFrameLabel1.setPixmap(qtImg)
-		self.videoCapture.ui.opencvFrameLabel2.setPixmap(qtImg)
+		self.videoCapture.ui.opencvFrameLabel.setPixmap(qtImg)
 
+	def openColorSettingsWindow(self):
+		self.colorSettings.show()
 
 
 
