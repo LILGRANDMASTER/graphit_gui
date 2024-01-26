@@ -1,12 +1,5 @@
 import sys
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import (
-								QApplication, QVBoxLayout, QWidget,
-								QLabel, QGridLayout, QPushButton, 
-								QHBoxLayout, QLineEdit, QComboBox,
-								QMainWindow, QMenuBar, QMenu, QAction
-							)
+from PyQt5.QtWidgets import QWidget
 
 sys.path.insert(1, './ui_files')
 from cvVideoCapture import Ui_cvVideoCapture
