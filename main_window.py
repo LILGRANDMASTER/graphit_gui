@@ -20,6 +20,7 @@ from cvVideoCaptureWidget import VideoCaptureWidget
 from colorSettingsWidget import ColorSettingsWidget
 from shaft_visual import Shaft_Visual
 from videoCapture import VideoThread
+from openglShaftVisual import OpenGLWidget
 
 class Main_Window(QMainWindow):
 
@@ -40,15 +41,20 @@ class Main_Window(QMainWindow):
 		
 		#CREATING LAYOUTS
 		mainGrid = QGridLayout()
+		hbox = QHBoxLayout()
 		mainGrid.setRowStretch(0, 1)
 		mainGrid.setRowStretch(1, 2)
+		mainGrid.setColumnStretch(0, 1)
+		mainGrid.setColumnStretch(1, 2)
+		mainGrid.addLayout(hbox, 0, 1)
 
 		#CREATING WIDGETS
 		registrationWin = RegistrationWidget()
 		servoSettings = ServoSettingsWidget()
 		self.videoCapture = VideoCaptureWidget()
 		self.colorSettings = ColorSettingsWidget()
-		shaftVisual = Shaft_Visual()
+		openglShaftVisual = OpenGLWidget()
+		info = QLabel()
 
 
 		
@@ -56,7 +62,8 @@ class Main_Window(QMainWindow):
 		mainGrid.addWidget(registrationWin, 0, 0)
 		mainGrid.addWidget(servoSettings, 1, 1)
 		mainGrid.addWidget(self.videoCapture, 1, 0)
-		mainGrid.addWidget(shaftVisual, 0, 1)
+		hbox.addWidget(openglShaftVisual)
+		hbox.addWidget(info)
 
 		#SETTING LAYOUTS TO CENTRAL WIDGET
 		self.mainWidget.setLayout(mainGrid)
@@ -81,12 +88,12 @@ class Main_Window(QMainWindow):
 		#Выглядит по уебански, но работает
 		self.colorSettings.ui.apply.clicked.connect(
 			lambda: self.vidThread.calibrate(
-				int(self.colorSettings.ui.rl.text()),
-				int(self.colorSettings.ui.gl.text()),
-				int(self.colorSettings.ui.bl.text()),
-				int(self.colorSettings.ui.ru.text()),
-				int(self.colorSettings.ui.gu.text()),
-				int(self.colorSettings.ui.bu.text())
+				int(self.colorSettings.ui.r1.text()),
+				int(self.colorSettings.ui.g1.text()),
+				int(self.colorSettings.ui.b1.text()),
+				int(self.colorSettings.ui.r2.text()),
+				int(self.colorSettings.ui.g2.text()),
+				int(self.colorSettings.ui.b2.text())
 			)
 		)
 		

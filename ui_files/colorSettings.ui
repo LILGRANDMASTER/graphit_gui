@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -46,7 +46,7 @@
     <item row="1" column="0" colspan="2">
      <layout class="QGridLayout" name="gridLayout">
       <item row="1" column="3">
-       <widget class="QLineEdit" name="gu">
+       <widget class="QLineEdit" name="g2">
         <property name="maximumSize">
          <size>
           <width>50</width>
@@ -71,7 +71,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Красный</string>
+         <string>Синий</string>
         </property>
        </widget>
       </item>
@@ -96,7 +96,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="gl">
+       <widget class="QLineEdit" name="g1">
         <property name="maximumSize">
          <size>
           <width>50</width>
@@ -139,7 +139,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="rl">
+       <widget class="QLineEdit" name="r1">
         <property name="maximumSize">
          <size>
           <width>50</width>
@@ -149,7 +149,7 @@
        </widget>
       </item>
       <item row="0" column="3">
-       <widget class="QLineEdit" name="ru">
+       <widget class="QLineEdit" name="r2">
         <property name="maximumSize">
          <size>
           <width>50</width>
@@ -159,7 +159,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLineEdit" name="bl">
+       <widget class="QLineEdit" name="b1">
         <property name="maximumSize">
          <size>
           <width>50</width>
@@ -169,7 +169,7 @@
        </widget>
       </item>
       <item row="2" column="3">
-       <widget class="QLineEdit" name="bu">
+       <widget class="QLineEdit" name="b2">
         <property name="maximumSize">
          <size>
           <width>50</width>
