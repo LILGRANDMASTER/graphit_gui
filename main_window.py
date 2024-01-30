@@ -18,7 +18,6 @@ from regisgrationWidget import RegistrationWidget
 from servoSettingsWidget import ServoSettingsWidget
 from cvVideoCaptureWidget import VideoCaptureWidget
 from colorSettingsWidget import ColorSettingsWidget
-from shaft_visual import Shaft_Visual
 from videoCapture import VideoThread
 from openglShaftVisual import OpenGLWidget
 

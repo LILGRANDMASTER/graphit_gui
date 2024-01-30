@@ -4,6 +4,7 @@ from PyQt5.QtGui import QColor
 from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
+import numpy as np
 
 class OpenGLWidget(QOpenGLWidget):
     def initializeGL(self):
@@ -21,6 +22,7 @@ class OpenGLWidget(QOpenGLWidget):
     def resizeGL(self, width, height):
         glViewport(0, 0, width, height)  # Устанавливаем область вывода
 
+    #Восьмиугольник
     def draw_octagon(self, size, color):
         if(color == "red"):
             glColor3f(1.0, 0.0, 0.0)  # Устанавливаем цвет (красный)
@@ -39,6 +41,22 @@ class OpenGLWidget(QOpenGLWidget):
         glVertex2f(-size, -size)
 
         glEnd()  # Завершаем рисование многоугольника
+
+    #Десятиугольник
+    def draw_decagon(self):
+        glClear(GL_COLOR_BUFFER_BIT)  # Очищаем экран
+
+        glColor3f(1.0, 1.0, 1.0)  # Устанавливаем цвет рисования (белый)
+
+        # Рисуем 10-угольник
+        glBegin(GL_POLYGON)
+        for i in range(10):
+            angle = 2 * 3.14159 * i / 10
+            x = 0.5 * np.cos(angle)
+            y = 0.5 * np.sin(angle)
+            glVertex2f(x, y)
+        glEnd()
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
