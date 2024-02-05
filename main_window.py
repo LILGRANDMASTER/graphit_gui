@@ -1,4 +1,5 @@
 import sys
+from PyQt5.QtGui import QMouseEvent
 import numpy as np
 import cv2
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread
@@ -30,6 +31,7 @@ class Main_Window(QMainWindow):
 		self.resize(1100, 1000)
 		self.setWindowTitle('GRAPHIT')
 		self.setWindowIcon(QIcon('./icons/grafit_rosatom.png'))
+		self.setMouseTracking(True)
 
 		#OPENCV VIDEO SHAPE
 		self.imgWidth = 800
@@ -62,6 +64,7 @@ class Main_Window(QMainWindow):
 		mainGrid.addWidget(servoSettings, 1, 1)
 		mainGrid.addWidget(self.videoCapture, 1, 0)
 		hbox.addWidget(openglShaftVisual)
+		hbox.addWidget(info)
 		hbox.addWidget(info)
 
 		#SETTING LAYOUTS TO CENTRAL WIDGET
@@ -150,7 +153,7 @@ class Main_Window(QMainWindow):
 		self.colorSettings.show()
 
 	def useVideoFilter(self):
-		self.vidThread.useFilter = not self.vidThread.useFilter
+		self.vidThread.useFilter = not self.vidThread.useFilter	
 
 
 

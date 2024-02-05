@@ -1,4 +1,5 @@
 import sys
+from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget
 
 sys.path.insert(1, './ui_files')
@@ -10,4 +11,9 @@ class VideoCaptureWidget(QWidget):
 
 		self.ui = Ui_cvVideoCapture()
 		self.ui.setupUi(self)
+
+
+	def mouseDoubleClickEvent(self, event):
+		print(event.x(), event.y())
+
 		

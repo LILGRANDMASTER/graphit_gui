@@ -54,8 +54,9 @@ class OpenGLWidget(QOpenGLWidget):
         glColor3f(0.0, 0.0, 0.0)  # Устанавливаем цвет вертикальных линий (черный)
         glBegin(GL_LINES)
         num_lines = 50  # Количество линий
+        num_lines = int(num_lines * 1)
         for i in range(num_lines):
-            x = -1 + (1.0 / num_lines) * i
+            x = -1 + (1 / num_lines) * i
             glVertex2f(x, 1)
             glVertex2f(x, -1)
         glEnd()

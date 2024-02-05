@@ -10,6 +10,7 @@ import numpy as np
 class VideoThread(QThread):
     frameSignal = pyqtSignal(np.ndarray)
     useFilter = False
+
     
     class Color:
        def __init__(self, red, green, blue):
@@ -23,6 +24,7 @@ class VideoThread(QThread):
 
     def run(self):
         videoFrame = cv2.VideoCapture(0)
+        self.setMouseTracking(True)
 
         while True:
             ret, cvImg = videoFrame.read()
@@ -62,15 +64,3 @@ class VideoThread(QThread):
     def calibrate(self, r1, g1, b1, r2, g2, b2):
         self.lbColor = self.Color(r1, g1, b1)
         self.ubColor = self.Color(r2, g2, b2)
-
-
-
-
-        
-
-
-
-        
-
-
-
