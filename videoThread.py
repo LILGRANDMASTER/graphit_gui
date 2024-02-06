@@ -24,7 +24,6 @@ class VideoThread(QThread):
 
     def run(self):
         videoFrame = cv2.VideoCapture(0)
-        self.setMouseTracking(True)
 
         while True:
             ret, cvImg = videoFrame.read()

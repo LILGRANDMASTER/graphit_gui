@@ -19,7 +19,7 @@ from regisgrationWidget import RegistrationWidget
 from servoSettingsWidget import ServoSettingsWidget
 from cvVideoCaptureWidget import VideoCaptureWidget
 from colorSettingsWidget import ColorSettingsWidget
-from videoCapture import VideoThread
+from videoThread import VideoThread
 from openglShaftVisual import OpenGLWidget
 
 class Main_Window(QMainWindow):
