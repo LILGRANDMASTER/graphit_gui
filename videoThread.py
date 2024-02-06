@@ -16,9 +16,9 @@ class VideoThread(QThread):
 
     text = ""
     
-    color = (0, 0, 0)
-
     delta = 20
+
+    zoom = 100
 
     
     class Color:
@@ -30,6 +30,7 @@ class VideoThread(QThread):
     
     lbColor = Color(0, 0, 0)
     ubColor = Color(255, 255, 255)
+    color = Color(0, 0, 0)
 
     def run(self):
         videoFrame = cv2.VideoCapture(0)
@@ -41,11 +42,24 @@ class VideoThread(QThread):
                 self.frameSignal.emit(self.processImage(cvImg))
 
 
+
+    def zoom_at(self, img, zoom, angle=0):
+        coord = (self.xMouse, self.yMouse)
+
+        cy, cx = [i / 2 for i in img.shape[:-1]] if coord is None else coord[::-1]
+        rot_mat = cv2.getRotationMatrix2D((cx, cy), angle, int(zoom))
+        result = cv2.warpAffine(img, rot_mat, img.shape[1::-1], flags=cv2.INTER_LINEAR)
+
+        return result
+
+    
+
     def processImage(self, cvImg):
         kernel = np.array([[-1, -1, -1], [-1, 8, -1], [-1, -1, 0]], np.float32)
         kernel = 1 / 3 * kernel
 
         frame = cv2.cvtColor(cvImg, cv2.COLOR_BGR2RGB)
+        frame = self.zoom_at(frame, int(self.zoom / 100))
 
         lowerBound = np.array([self.lbColor.r, self.lbColor.g, self.lbColor.b])
         upperBound = np.array([self.ubColor.r, self.ubColor.g, self.ubColor.b])
@@ -56,10 +70,10 @@ class VideoThread(QThread):
         contours, hierarchy = cv2.findContours(oImg.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_TC89_L1)
         cv2.drawContours(frame, contours, -1, (0,255,0), 1, cv2.LINE_AA, hierarchy, 1 )
 
-        r = self.color[0]
-        g = self.color[1]
-        b = self.color[2]
-        
+        r = self.color.r
+        g = self.color.g
+        b = self.color.b
+
         cv2.circle(frame, (self.xMouse, self.yMouse), 1, (255 - b, 255 - g, 255 - r), thickness=7)
         cv2.putText(frame, self.text, (self.xMouse, self.yMouse), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255 - b, 255 - g, 255 - r), 1, 5)
 
@@ -82,7 +96,7 @@ class VideoThread(QThread):
         g = event[1]
         b = event[2]
 
-        self.color = (r, g, b)
+        self.color = self.Color(r, g, b)
         
         r1 = r - self.delta if r - self.delta > 0 else 0
         g1 = g - self.delta if g - self.delta > 0 else 0

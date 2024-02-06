@@ -80,7 +80,6 @@ class Main_Window(QMainWindow):
 		self._createActions()
 		self._createMenuBar()
 
-
 		#CREATING VIDEO THREAD FROM OPENCV
 		self.vidThread = VideoThread()
 		self.vidThread.start()
@@ -92,6 +91,7 @@ class Main_Window(QMainWindow):
 		self.videoSettings.ui.colorSettings.clicked.connect(self.openColorSettingsWindow)
 		self.videoSettings.ui.useFilter.clicked.connect(self.useVideoFilter)
 		self.videoFrame.mouseSignal.connect(self.vidThread.click)
+		self.videoSettings.ui.zoomValue.valueChanged.connect(self.readZoomValue)
 
 		#Выглядит по уебански, но работает
 		self.colorSettings.ui.apply.clicked.connect(
@@ -105,8 +105,6 @@ class Main_Window(QMainWindow):
 			)
 		)
 		
-		
-
 
 	def _createMenuBar(self):
 		menu_bar = self.menuBar()
@@ -159,7 +157,10 @@ class Main_Window(QMainWindow):
 		self.colorSettings.show()
 
 	def useVideoFilter(self):
-		self.vidThread.useFilter = not self.vidThread.useFilter	
+		self.vidThread.useFilter = not self.vidThread.useFilter
+
+	def readZoomValue(self):
+		self.vidThread.zoom = self.videoSettings.ui.zoomValue.value()
 
 
 
