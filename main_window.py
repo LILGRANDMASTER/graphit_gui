@@ -91,6 +91,7 @@ class Main_Window(QMainWindow):
 		self.videoSettings.ui.autocalibrateColor.clicked.connect(self.vidThread.autocalibrate)
 		self.videoSettings.ui.colorSettings.clicked.connect(self.openColorSettingsWindow)
 		self.videoSettings.ui.useFilter.clicked.connect(self.useVideoFilter)
+		self.videoFrame.mouseSignal.connect(self.vidThread.click)
 
 		#Выглядит по уебански, но работает
 		self.colorSettings.ui.apply.clicked.connect(
