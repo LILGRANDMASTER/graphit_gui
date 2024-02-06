@@ -12,13 +12,12 @@ from PyQt5.QtWidgets import (
 								QMainWindow, QMenuBar, QMenu, QAction
 							)
 
-from PyQt5 import uic
-
 
 from regisgrationWidget import RegistrationWidget
 from servoSettingsWidget import ServoSettingsWidget
-from cvVideoCaptureWidget import VideoCaptureWidget
 from colorSettingsWidget import ColorSettingsWidget
+from videoSettingsWidget import VideoSettingsWidget
+from videoFrameLabel import VideoFrameLabel
 from videoThread import VideoThread
 from openglShaftVisual import OpenGLWidget
 
@@ -43,26 +42,36 @@ class Main_Window(QMainWindow):
 		#CREATING LAYOUTS
 		mainGrid = QGridLayout()
 		hbox = QHBoxLayout()
+		videoVBox = QVBoxLayout()
+
+		#LAYOUT SETTINGS
 		mainGrid.setRowStretch(0, 1)
 		mainGrid.setRowStretch(1, 2)
 		mainGrid.setColumnStretch(0, 1)
 		mainGrid.setColumnStretch(1, 2)
+
 		mainGrid.addLayout(hbox, 0, 1)
+		mainGrid.addLayout(videoVBox, 1, 0)
 
 		#CREATING WIDGETS
-		registrationWin = RegistrationWidget()
-		servoSettings = ServoSettingsWidget()
-		self.videoCapture = VideoCaptureWidget()
-		self.colorSettings = ColorSettingsWidget()
-		openglShaftVisual = OpenGLWidget()
-		info = QLabel()
+		registrationWin 	= RegistrationWidget()
+		servoSettings 		= ServoSettingsWidget()
+		self.colorSettings 	= ColorSettingsWidget()
+		self.videoSettings 	= VideoSettingsWidget()
+		self.videoFrame 	= VideoFrameLabel()
+		
+		openglShaftVisual 	= OpenGLWidget()
+		info 				= QLabel()
 
 
 		
 		#ADDING WIDGETS TO LAYOUTS
 		mainGrid.addWidget(registrationWin, 0, 0)
 		mainGrid.addWidget(servoSettings, 1, 1)
-		mainGrid.addWidget(self.videoCapture, 1, 0)
+		
+		videoVBox.addWidget(self.videoFrame, Qt.AlignmentFlag.AlignLeft)
+		videoVBox.addWidget(self.videoSettings, Qt.AlignmentFlag.AlignLeft)
+		
 		hbox.addWidget(openglShaftVisual)
 		hbox.addWidget(info)
 		hbox.addWidget(info)
@@ -83,9 +92,9 @@ class Main_Window(QMainWindow):
 
 		#CONNECT SLOTS AND SIGNALS
 		self.vidThread.frameSignal.connect(self.updateImage)
-		self.videoCapture.ui.autocalibrateColor.clicked.connect(self.vidThread.autocalibrate)
-		self.videoCapture.ui.colorSettings.clicked.connect(self.openColorSettingsWindow)
-		self.videoCapture.ui.useFilter.clicked.connect(self.useVideoFilter)
+		self.videoSettings.ui.autocalibrateColor.clicked.connect(self.vidThread.autocalibrate)
+		self.videoSettings.ui.colorSettings.clicked.connect(self.openColorSettingsWindow)
+		self.videoSettings.ui.useFilter.clicked.connect(self.useVideoFilter)
 
 		#Выглядит по уебански, но работает
 		self.colorSettings.ui.apply.clicked.connect(
@@ -147,7 +156,7 @@ class Main_Window(QMainWindow):
 	def updateImage(self, cvImg):
 		"""Updates imageLabel with opencv image"""
 		qtImg = self.cv2qt(cvImg)
-		self.videoCapture.ui.opencvFrameLabel.setPixmap(qtImg)
+		self.videoFrame.setPixmap(qtImg)
 
 	def openColorSettingsWindow(self):
 		self.colorSettings.show()
