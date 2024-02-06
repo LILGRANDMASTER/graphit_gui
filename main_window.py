@@ -32,10 +32,6 @@ class Main_Window(QMainWindow):
 		self.setWindowIcon(QIcon('./icons/grafit_rosatom.png'))
 		self.setMouseTracking(True)
 
-		#OPENCV VIDEO SHAPE
-		self.imgWidth = 800
-		self.imgHeight = 500
-
 		#CREATING CENTRAL WIDGET
 		self.mainWidget = QWidget()
 		
@@ -148,7 +144,7 @@ class Main_Window(QMainWindow):
 		bytesPerLine = ch * w
 
 		qtFormatImage = QtGui.QImage(rgbImage.data, w, h, bytesPerLine, QtGui.QImage.Format_RGB888)
-		result = qtFormatImage.scaled(self.imgWidth, self.imgHeight, Qt.KeepAspectRatio)
+		result = qtFormatImage.scaled(self.videoFrame.imgWidth, self.videoFrame.imgHeight, Qt.KeepAspectRatio)
 		return QPixmap.fromImage(result)
 	
 
