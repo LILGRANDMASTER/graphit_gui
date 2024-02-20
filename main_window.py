@@ -20,6 +20,7 @@ from videoSettingsWidget import VideoSettingsWidget
 from videoFrameLabel import VideoFrameLabel
 from videoThread import VideoThread
 from openglShaftVisual import OpenGLWidget
+from modbus import ModBus
 
 class Main_Window(QMainWindow):
 
@@ -51,7 +52,7 @@ class Main_Window(QMainWindow):
 
 		#CREATING WIDGETS
 		registrationWin 	= RegistrationWidget()
-		servoSettings 		= ServoSettingsWidget()
+		self.servoSettings 		= ServoSettingsWidget()
 		self.colorSettings 	= ColorSettingsWidget()
 		self.videoSettings 	= VideoSettingsWidget()
 		self.videoFrame 	= VideoFrameLabel()
@@ -63,7 +64,7 @@ class Main_Window(QMainWindow):
 		
 		#ADDING WIDGETS TO LAYOUTS
 		mainGrid.addWidget(registrationWin, 0, 0)
-		mainGrid.addWidget(servoSettings, 1, 1)
+		mainGrid.addWidget(self.servoSettings, 1, 1)
 		
 		videoVBox.addWidget(self.videoFrame, Qt.AlignmentFlag.AlignLeft)
 		videoVBox.addWidget(self.videoSettings, Qt.AlignmentFlag.AlignLeft)
@@ -104,6 +105,7 @@ class Main_Window(QMainWindow):
 				int(self.colorSettings.ui.b2.text())
 			)
 		)
+		
 		
 
 	def _createMenuBar(self):
