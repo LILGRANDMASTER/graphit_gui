@@ -95,14 +95,21 @@ class Main_Window(QMainWindow):
 		self.videoSettings.ui.zoomValue.valueChanged.connect(self.readZoomValue)
 
 		#Выглядит по уебански, но работает
+		color = [0] * 6
+		try:
+			color[0] = int(self.colorSettings.ui.r1.text())
+			color[1] = int(self.colorSettings.ui.g1.text())
+			color[2] = int(self.colorSettings.ui.b1.text())
+			color[3] = int(self.colorSettings.ui.r2.text())
+			color[4] = int(self.colorSettings.ui.g2.text())
+			color[5] = int(self.colorSettings.ui.b2.text())
+		except ValueError:
+			print('Отсутствует значение цвета')
+
+		
 		self.colorSettings.ui.apply.clicked.connect(
 			lambda: self.vidThread.calibrate(
-				int(self.colorSettings.ui.r1.text()),
-				int(self.colorSettings.ui.g1.text()),
-				int(self.colorSettings.ui.b1.text()),
-				int(self.colorSettings.ui.r2.text()),
-				int(self.colorSettings.ui.g2.text()),
-				int(self.colorSettings.ui.b2.text())
+				color[0], color[1], color[2], color[3], color[4], color[5]	
 			)
 		)
 		

@@ -40,14 +40,19 @@ class ServoSettingsWidget(QWidget):
 
 
     def readSpeed(self):
-        self.motor_default_speed[0] = int(self.ui.velocity1.text())
-        self.motor_default_speed[1] = int(self.ui.velocity2.text())
-        self.motor_default_speed[2] = int(self.ui.velocity3.text())
-        self.motor_default_speed[3] = int(self.ui.velocity4.text())
-        self.motor_default_speed[4] = int(self.ui.velocity5.text())
-        self.motor_default_speed[5] = int(self.ui.velocity6.text())
-        self.motor_default_speed[6] = int(self.ui.velocity7.text())
-        self.motor_default_speed[7] = int(self.ui.velocity8.text())
+        try:
+            self.motor_default_speed[0] = int(self.ui.velocity1.text())
+            self.motor_default_speed[1] = int(self.ui.velocity2.text())
+            self.motor_default_speed[2] = int(self.ui.velocity3.text())
+            self.motor_default_speed[3] = int(self.ui.velocity4.text())
+            self.motor_default_speed[4] = int(self.ui.velocity5.text())
+            self.motor_default_speed[5] = int(self.ui.velocity6.text())
+            self.motor_default_speed[6] = int(self.ui.velocity7.text())
+            self.motor_default_speed[7] = int(self.ui.velocity8.text())
+
+        except ValueError:
+            self.motor_default_speed = [0] * 8;
+            print("Отсутствует значение скорости")
 
 
     def changeMotorState(self, index):
@@ -60,12 +65,16 @@ class ServoSettingsWidget(QWidget):
         c = ModbusClient(host="192.168.0.10", auto_open=True, auto_close=True)
 
         regs = c.read_holding_registers(23, 16)
-        print(regs)
-        for k in range(0, 7, 1):
-            l = regs[k + 8]
-            j = regs[k]
-            self.distance[k] = l
-            self.distance_state[k] = j
+        
+        if(regs != None):
+            print(regs)
+
+            for k in range(0, 7, 1):
+                l = regs[k + 8]
+                j = regs[k]
+                self.distance[k] = l
+                self.distance_state[k] = j
+
         motor = [0] * 8
         revers = [0] * 8
 
